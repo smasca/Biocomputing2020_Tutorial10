@@ -11,14 +11,25 @@ data <- read.table(file="UWvMSU_1-22-13.txt",header = TRUE, stringsAsFactors = F
 
 sumUW <- 0
 sumMSU <- 0
+M <- matrix(0,nrow=3,ncol=0)
 
+# upload data 
 for (i in 1:nrow(data)) {
   if (data$team[i]=="UW") {
     sumUW = sumUW + data$score[i]
-    plot(data$time[i], sumUW, type='l')
   }
+  else {
+    sumMSU = sumMSU + data$score[i]
+  }
+  M <- cbind(M, c(data$time[i],sumUW,sumMSU))  
 }
 
+# plot the graph 
+rownames(M) <- c("Time", "UW", "MSU")
+plot(M[1,],M[2,],type = 'l', xlab="Time", ylab="Score", col="red") # plot time vs. UW score
+lines(M[1,],M[3,],col="green") # plot time vs MSU score
+
+############################################################
 
 # Task 2: 'guess my number' game
 
