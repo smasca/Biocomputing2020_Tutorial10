@@ -37,17 +37,32 @@ lines(M[1,],M[3,],col="green") # MSU score = green line
 # choose random number 
 num <- sample(1:100,1,replace=FALSE,prob=NULL)
 
-# play the game
+# set variables 
 cat("I'm thinking of a number 1-100...")
-while (TRUE) {
+i <- 0
+guess <- 0
+
+# play the game
+while (guess != num) {
   guess <- readline(prompt = "Guess: ")
-  if (guess == num) {
-    return(cat("Correct!\n"))
+  if (i < 9) {
+    if (guess == num) {
+      return(cat("Correct!\n"))
+    }
+    else if (guess > num) {
+      i <- i+1
+      cat("Lower\n")
+    }
+    else if (guess < num) {
+      i <- i+1
+      cat("Higher\n")
+    }
   }
-  else if (guess > num) {
-    cat("Lower\n")
-  }
-  else if (guess < num) {
-    cat("Higher\n")
+  # if player uses all 10 tries, exit game
+  else if (i > 8) {
+    cat("Sorry, no more tries!")
+    break
   }
 }
+
+
